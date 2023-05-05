@@ -5,6 +5,8 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
+    private String key;
+
 
     public Employee(String firstName,String lastName){
        this.firstName=firstName;
@@ -18,6 +20,11 @@ public class Employee {
     public String getLastName() {
         return lastName;
     }
+
+    public String getKey() {
+        return lastName+firstName;
+    }
+
 
     @Override
     public String toString() {
@@ -39,5 +46,4 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(firstName, lastName);
     }
-
 }
