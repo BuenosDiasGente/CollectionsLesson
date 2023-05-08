@@ -6,36 +6,33 @@ import pro.sky.cours2.collectionsLesson.exceptions.EmployeeAlreadyAddedException
 import pro.sky.cours2.collectionsLesson.exceptions.EmployeeNotFoundException;
 import pro.sky.cours2.collectionsLesson.exceptions.EmployeeStorageIsFullException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployeeService implements EmployeeServiceInterface {
-    private  final List<Employee> employees;
 
-    public EmployeeService(List<Employee> employees) {
-        this.employees = employees;
+
+    public  Map<String,Employee> employees;
+
+    public EmployeeService() {
+        this.employees = new HashMap<>();
     }
 
     @Override
     public Employee addEmployee(String firsName,String lastName) {
         Employee employee=new Employee(firsName,lastName);
-        if(employees.contains(employee)){
+        if(employees.containsKey(employee.getKey())){
             throw new EmployeeAlreadyAddedException(" Добавляемый сотрудник имеется в коллекции");
         }
-        else if (employees.size() > 10){
-            throw new EmployeeStorageIsFullException(" Коллекция переполнена");
-        }
-        employees.add(employee);
+        employees.put(employee.getKey(), employee);
         return employee;
     }
 
     @Override
     public Employee removeEmployee(String fistName,String lastName) {
         Employee employee=new Employee(fistName,lastName);
-                if(employees.contains(employee)){
-                    employees.remove(employee);
+                if(employees.containsKey(employee.getKey())){
+                    employees.remove(employee.getKey());
                     return employee;}
         throw new EmployeeNotFoundException(" Удаляемый сотрудник не найден");
     }
@@ -43,14 +40,16 @@ public class EmployeeService implements EmployeeServiceInterface {
     @Override
     public Employee findEmployee(String fistName,String lastName) {
         Employee employee=new Employee(fistName,lastName);
-        if(employees.contains(employee)){
-            return employee;
+        if(employees.containsKey(employee.getKey())){
+            return employees.get(employee.getKey());
         }
         throw new EmployeeNotFoundException(" Сотрудник не найден");
     }
     @Override
     public Collection<Employee>findAll(){
-        return new ArrayList<>(employees);
+        return Collections.unmodifiableCollection(employees.values());
+
+
     }
 
     }
