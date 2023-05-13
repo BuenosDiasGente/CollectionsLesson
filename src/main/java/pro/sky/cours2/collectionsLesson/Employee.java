@@ -5,12 +5,17 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
+    private int departmentId;
+    private int  salary;
     private String key;
 
 
-    public Employee(String firstName,String lastName){
+
+    public Employee(String firstName,String lastName,int departmentId,int salary){
        this.firstName=firstName;
        this.lastName=lastName;
+       this.departmentId=departmentId;
+       this.salary=salary;
     }
 
     public String getFirstName() {
@@ -24,14 +29,12 @@ public class Employee {
     public String getKey() {
         return lastName+firstName;
     }
+    public int getDepartmentId() {
+        return departmentId;
+    }
 
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    public int getSalary() {
+        return salary;
     }
 
     @Override
@@ -39,11 +42,25 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
+        return departmentId == employee.departmentId && salary == employee.salary && firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(firstName, lastName, departmentId, salary);
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", department=" + departmentId +
+                ", salary=" + salary +
+                '}';
+    }
+
+
+
+
 }
