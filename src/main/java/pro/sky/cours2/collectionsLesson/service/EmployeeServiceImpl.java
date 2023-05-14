@@ -11,7 +11,7 @@ import java.util.*;
 public class EmployeeServiceImpl implements EmployeeService {
 
 
-    public  Map<String,Employee> employees;
+    private final  Map<String,Employee> employees;
 
     public EmployeeServiceImpl() {
         this.employees = new HashMap<>();
@@ -19,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String firsName,String lastName,Integer department,Integer salary) {
-        Employee employee=new Employee(firsName,lastName);
+        Employee employee=new Employee(firsName,lastName,department,salary);
         if(employees.containsKey(employee.getKey())){
             throw new EmployeeAlreadyAddedException(" Добавляемый сотрудник имеется в коллекции");
         }
@@ -29,8 +29,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee removeEmployee(String fistName,String lastName) {
-        Employee employee=new Employee(fistName,lastName);
-                if(employees.containsKey(employee.getKey())){
+        Employee employee;
+        employee = new Employee(fistName,lastName);
+        if(employees.containsKey(employee.getKey())){
                     employees.remove(employee.getKey());
                     return employee;}
         throw new EmployeeNotFoundException(" Удаляемый сотрудник не найден");
@@ -44,12 +45,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         throw new EmployeeNotFoundException(" Сотрудник не найден");
     }
+
     @Override
-    public Collection<Employee>findAll(){
-        return Collections.unmodifiableCollection(employees.values());
-
-
+    public Map<String, Employee> getAllEmployees() {
+        return employees;
     }
+
+
 
     }
 
