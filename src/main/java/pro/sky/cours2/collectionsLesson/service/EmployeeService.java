@@ -8,9 +8,9 @@ import java.util.Map;
 public interface EmployeeService {
    // Map convertListBefore(List list);
 
-    Employee addEmployee(String firsName, String lastName,Integer departmentId,Integer salary);
-     Employee removeEmployee(String fistName,String lastName);
-    Employee findEmployee(String fistName,String lastName);
+    Employee addEmployee(String firstName, String lastName,Integer departmentId,Integer salary);
+     Employee removeEmployee(String firstName,String lastName);
+    Employee findEmployee(String firstName,String lastName);
     Map <String,Employee>getAllEmployees();
 
 }

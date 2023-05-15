@@ -14,41 +14,49 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final  Map<String,Employee> employees;
 
     public EmployeeServiceImpl() {
+
         this.employees = new HashMap<>();
     }
 
     @Override
-    public Employee addEmployee(String firsName,String lastName,Integer department,Integer salary) {
-        Employee employee=new Employee(firsName,lastName,department,salary);
-        if(employees.containsKey(employee.getKey())){
+    public Employee addEmployee(String firstName,String lastName,Integer departmentId,Integer salary) {
+        String key=new String(getEmployeeKey(firstName, lastName));
+        if(employees.containsKey(key)){
             throw new EmployeeAlreadyAddedException(" Добавляемый сотрудник имеется в коллекции");
         }
-        employees.put(employee.getKey(), employee);
-        return employee;
+        employees.put(key, new Employee(firstName,lastName,departmentId,salary));
+        return employees.get(key);
     }
 
     @Override
-    public Employee removeEmployee(String fistName,String lastName) {
-        Employee employee;
-        employee = new Employee(fistName,lastName);
-        if(employees.containsKey(employee.getKey())){
-                    employees.remove(employee.getKey());
-                    return employee;}
+    public Employee removeEmployee(String firstName,String lastName) {
+        String key=new String(getEmployeeKey(firstName, lastName));
+        if(employees.containsKey(key))
+        {
+                    employees.remove(key);
+                    return employees.get(key);
+        }
         throw new EmployeeNotFoundException(" Удаляемый сотрудник не найден");
     }
 
     @Override
-    public Employee findEmployee(String fistName,String lastName) {
-        Employee employee=new Employee(fistName,lastName);
-        if(employees.containsKey(employee.getKey())){
-            return employees.get(employee.getKey());
+    public Employee findEmployee(String firstName,String lastName) {
+        String key=new String(getEmployeeKey(firstName, lastName));
+        if(employees.containsKey(key))
+        {
+            return employees.get(key);
         }
         throw new EmployeeNotFoundException(" Сотрудник не найден");
     }
 
     @Override
     public Map<String, Employee> getAllEmployees() {
+
         return employees;
+    }
+    private String getEmployeeKey(String firstName,String lastName){
+        return firstName+lastName;
+
     }
 
 

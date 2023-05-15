@@ -7,7 +7,7 @@ public class Employee {
     private final String lastName;
     private Integer departmentId;
     private Integer  salary;
-   // private String key;
+
 
 
 
@@ -18,8 +18,7 @@ public class Employee {
        this.salary=salary;
     }
 
-   public Employee(String fistName, String lastName) {
-    }
+
 
 
     public String getFirstName() {
@@ -30,9 +29,6 @@ public class Employee {
         return lastName;
     }
 
-    public String getKey() {
-        return lastName+firstName;
-    }
     public Integer getDepartmentId() {
         return departmentId;
     }
