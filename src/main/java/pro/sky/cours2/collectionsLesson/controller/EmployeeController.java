@@ -1,27 +1,32 @@
 package pro.sky.cours2.collectionsLesson.controller;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pro.sky.cours2.collectionsLesson.Employee;
-import pro.sky.cours2.collectionsLesson.exceptions.EmployeeStorageIsFullException;
-import pro.sky.cours2.collectionsLesson.service.EmployeeServiceInterface;
+import pro.sky.cours2.collectionsLesson.service.EmployeeService;
 
-import java.util.Collection;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/employee")
 public class EmployeeController {
-  private final EmployeeServiceInterface employeeService;
+  private final EmployeeService employeeService;
 
-  public EmployeeController(EmployeeServiceInterface employeeService) {
+  public EmployeeController(EmployeeService employeeService) {
+
     this.employeeService = employeeService;
   }
 
   @GetMapping(path = "/add")
 
   public Employee addEmployee(@RequestParam("firstName")String firstName,
-                            @RequestParam("lastName")String lastName){
-     return employeeService.addEmployee(firstName,lastName);
+                            @RequestParam("lastName")String lastName,
+                            @RequestParam("departmenId")Integer departmentId,
+                             @RequestParam("salary")Integer salary)
+  {
+     return employeeService.addEmployee(firstName,lastName,departmentId,salary);
 
   }
   @GetMapping(path = "/remove")
@@ -38,8 +43,8 @@ public class EmployeeController {
     return employeeService.findEmployee(firstName, lastName);
   }
   @GetMapping
-  public Collection<Employee> findAll(){
-    return employeeService.findAll();
+  public Map<String,Employee> getAllEmployees(){
+    return employeeService.getAllEmployees();
   }
 
 
