@@ -2,7 +2,6 @@ package pro.sky.cours2.collectionsLesson.service;
 
 import pro.sky.cours2.collectionsLesson.Employee;
 
-import java.util.Collection;
 import java.util.Map;
 
 public interface EmployeeService {

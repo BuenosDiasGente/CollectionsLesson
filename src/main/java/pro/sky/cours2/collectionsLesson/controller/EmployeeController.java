@@ -1,13 +1,11 @@
 package pro.sky.cours2.collectionsLesson.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.cours2.collectionsLesson.Employee;
 import pro.sky.cours2.collectionsLesson.service.EmployeeService;
-import pro.sky.cours2.collectionsLesson.validator.EmployeeValidator;
 
 import java.util.Map;
 
@@ -23,19 +21,16 @@ public class EmployeeController {
 
   @GetMapping(path = "/add")
 
-  public ResponseEntity <Employee>addEmployee(@RequestParam("firstName")String firstName,
+  public Employee addEmployee(@RequestParam("firstName")String firstName,
                                              @RequestParam("lastName")String lastName,
                                              @RequestParam("departmenId")Integer departmentId,
                                              @RequestParam("salary")Integer salary)
   {
-    if(EmployeeValidator.validate(firstName,lastName))
-     return ResponseEntity.ok(EmployeeService.addEmployee(firstName,lastName));
-    else {
-      return ResponseEntity.badRequest().build();
 
+     return employeeService.addEmployee(firstName,lastName,departmentId,salary);
     }
 
-  }
+
   @GetMapping(path = "/remove")
 
     public Employee removeEmployee(@RequestParam("firstName")String firstName,
