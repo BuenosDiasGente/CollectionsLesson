@@ -6,7 +6,6 @@ import pro.sky.cours2.collectionsLesson.Employee;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +30,14 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .filter(employee -> employee.getDepartmentId().equals(departmentId))
                 .max(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
+    }
+    @Override
+    public Map<Integer, Integer> sumSalaryInDepartment(Integer departmentId) {
+        return employeeService.getAllEmployees().values().stream()
+               .filter(employee -> employee.getDepartmentId().equals(departmentId))
+                .collect(Collectors.groupingBy(Employee::getDepartmentId,
+                        Collectors.summingInt(Employee::getSalary)));
+
     }
 
     @Override

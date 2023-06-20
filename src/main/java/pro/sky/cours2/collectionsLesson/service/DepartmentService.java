@@ -9,8 +9,9 @@ public interface DepartmentService {
     Employee calculatinMinSalary(Integer departmentId);
 
     Employee calculatinMaxSalary(Integer departmentId);
-
+    Map<Integer, Integer> sumSalaryInDepartment(Integer departmentId);
     Map<Integer, List<Employee>>  allEmployeesDepartment();
 
     Map<Integer, List<Employee>> allEmployeesInDepartment(Integer departmentId);
+
 }
